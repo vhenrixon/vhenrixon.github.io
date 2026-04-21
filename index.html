@@ -44,8 +44,8 @@
         min-height: 320px;
         overflow: hidden;
         background:
-          linear-gradient(180deg, rgba(129, 220, 229, 0.92) 0%, rgba(129, 220, 229, 0.92) 70%, rgba(117, 211, 219, 0.95) 70%),
-          var(--water);
+          linear-gradient(rgba(29, 91, 240, 0.22), rgba(29, 91, 240, 0.22)),
+          var(--water) url("header.png") center / cover no-repeat;
       }
 
       .hero h1 {
@@ -65,7 +65,7 @@
         z-index: 4;
         display: block;
         width: fit-content;
-        margin: 1rem auto 0;
+        margin: 5rem auto 0;
         padding: 0.8rem 1.4rem;
         border: 2px solid rgba(29, 91, 240, 0.22);
         border-radius: 4px;
@@ -92,149 +92,6 @@
       .play-button:focus-visible {
         outline: 3px solid rgba(255, 255, 255, 0.8);
         outline-offset: 3px;
-      }
-
-      .horizon,
-      .shoreline,
-      .turtle,
-      .cloud,
-      .rock,
-      .plant,
-      .bucket {
-        position: absolute;
-      }
-
-      .horizon {
-        left: 0;
-        right: 0;
-        bottom: 60px;
-        height: 4px;
-        background: rgba(67, 166, 179, 0.25);
-      }
-
-      .shoreline {
-        left: 3%;
-        right: 3%;
-        bottom: 28px;
-        height: 36px;
-        border-bottom: 3px dashed var(--grass);
-        border-radius: 0 0 70% 70%;
-      }
-
-      .shoreline::before,
-      .shoreline::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        width: 70px;
-        height: 45px;
-        border-bottom: 3px dashed var(--grass);
-      }
-
-      .shoreline::before {
-        left: -34px;
-        transform: rotate(42deg);
-      }
-
-      .shoreline::after {
-        right: -34px;
-        transform: rotate(-42deg);
-      }
-
-      .turtle {
-        left: 44%;
-        top: 150px;
-        width: 72px;
-        height: 42px;
-        transform: rotate(-18deg);
-      }
-
-      .turtle::before {
-        content: "";
-        position: absolute;
-        left: 12px;
-        top: 10px;
-        width: 38px;
-        height: 24px;
-        border-radius: 50%;
-        background: rgba(86, 157, 137, 0.42);
-        box-shadow:
-          -17px 5px 0 -3px rgba(86, 157, 137, 0.38),
-          40px 4px 0 -5px rgba(86, 157, 137, 0.38),
-          14px -10px 0 -8px rgba(86, 157, 137, 0.38),
-          14px 20px 0 -8px rgba(86, 157, 137, 0.38);
-      }
-
-      .turtle::after {
-        content: "";
-        position: absolute;
-        left: 22px;
-        top: 13px;
-        width: 24px;
-        height: 16px;
-        border-radius: 50%;
-        border: 3px solid rgba(57, 132, 119, 0.22);
-      }
-
-      .cloud {
-        width: 28px;
-        height: 8px;
-        border-radius: 999px;
-        background: rgba(185, 239, 239, 0.45);
-      }
-
-      .cloud.one {
-        left: 20%;
-        bottom: 75px;
-      }
-
-      .cloud.two {
-        left: 34%;
-        bottom: 74px;
-      }
-
-      .cloud.three {
-        left: 61%;
-        bottom: 73px;
-      }
-
-      .rock {
-        bottom: 50px;
-        height: 18px;
-        width: 70px;
-        background: rgba(58, 134, 154, 0.26);
-        clip-path: polygon(0 70%, 18% 40%, 45% 50%, 66% 26%, 100% 70%, 100% 100%, 0 100%);
-      }
-
-      .rock.one {
-        left: 18%;
-      }
-
-      .rock.two {
-        left: 32%;
-        width: 64px;
-      }
-
-      .rock.three {
-        left: 58%;
-      }
-
-      .plant {
-        bottom: 52px;
-        left: 56%;
-        width: 28px;
-        height: 32px;
-        background: rgba(58, 134, 154, 0.22);
-        clip-path: polygon(50% 0, 74% 38%, 100% 100%, 0 100%, 26% 38%);
-      }
-
-      .bucket {
-        right: 16%;
-        bottom: 51px;
-        width: 34px;
-        height: 44px;
-        border-radius: 7px 7px 0 0;
-        background: rgba(130, 184, 170, 0.24);
       }
 
       .content-grid {
@@ -291,6 +148,7 @@
         }
 
         .play-button {
+          margin-top: 3rem;
           padding: 0.72rem 1.1rem;
           font-size: 0.95rem;
         }
@@ -313,17 +171,6 @@
       <section class="hero" aria-label="Baby Turtle Survival game scene">
         <h1>Baby Turtle Survival</h1>
         <a class="play-button" href="game/Turtle-game.html">Play Game</a>
-        <div class="horizon"></div>
-        <div class="cloud one"></div>
-        <div class="cloud two"></div>
-        <div class="cloud three"></div>
-        <div class="turtle" aria-hidden="true"></div>
-        <div class="rock one"></div>
-        <div class="rock two"></div>
-        <div class="plant"></div>
-        <div class="rock three"></div>
-        <div class="bucket"></div>
-        <div class="shoreline"></div>
       </section>
 
       <section class="content-grid" aria-label="Project details">
