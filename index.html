@@ -3,21 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Turtle Game</title>
+    <title>Baby Turtle Survival</title>
     <meta
       name="description"
-      content="Landing page for the CS8803-EGD Turtle Game project."
+      content="Project overview for Baby Turtle Survival, a side-scrolling environmental education game."
     />
     <style>
       :root {
-        --bg: #f4efe5;
-        --panel: rgba(255, 250, 242, 0.88);
-        --text: #17352b;
-        --muted: #4d675e;
-        --accent: #d96b2b;
-        --accent-dark: #9f4515;
-        --line: rgba(23, 53, 43, 0.14);
-        --shadow: 0 24px 60px rgba(45, 55, 34, 0.12);
+        --bg: #9ae4e2;
+        --surface: #4cc5ec;
+        --surface-dark: #32aeda;
+        --water: #7fd6e1;
+        --text: #1d5bf0;
+        --text-soft: #266ae7;
+        --grass: #59b956;
+        --shore: #91d091;
+        --shadow: rgba(18, 92, 131, 0.16);
       }
 
       * {
@@ -26,299 +27,332 @@
 
       body {
         margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(circle at top left, rgba(217, 107, 43, 0.18), transparent 28%),
-          radial-gradient(circle at top right, rgba(55, 113, 98, 0.2), transparent 24%),
-          linear-gradient(180deg, #f8f2e8 0%, var(--bg) 100%);
+        background: var(--bg);
       }
 
       .shell {
-        width: min(1100px, calc(100% - 2rem));
+        width: min(1040px, calc(100% - 2rem));
         margin: 0 auto;
-        padding: 2rem 0 4rem;
-      }
-
-      .hero,
-      .section {
-        background: var(--panel);
-        backdrop-filter: blur(8px);
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        box-shadow: var(--shadow);
+        padding: 1.5rem 0 2rem;
       }
 
       .hero {
-        padding: 3rem;
-        overflow: hidden;
         position: relative;
+        min-height: 320px;
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(129, 220, 229, 0.92) 0%, rgba(129, 220, 229, 0.92) 70%, rgba(117, 211, 219, 0.95) 70%),
+          var(--water);
       }
 
-      .hero::after {
+      .hero h1 {
+        position: relative;
+        z-index: 4;
+        margin: 0;
+        padding-top: 2.1rem;
+        text-align: center;
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: 0;
+      }
+
+      .horizon,
+      .shoreline,
+      .turtle,
+      .cloud,
+      .rock,
+      .plant,
+      .bucket {
+        position: absolute;
+      }
+
+      .horizon {
+        left: 0;
+        right: 0;
+        bottom: 60px;
+        height: 4px;
+        background: rgba(67, 166, 179, 0.25);
+      }
+
+      .shoreline {
+        left: 3%;
+        right: 3%;
+        bottom: 28px;
+        height: 36px;
+        border-bottom: 3px dashed var(--grass);
+        border-radius: 0 0 70% 70%;
+      }
+
+      .shoreline::before,
+      .shoreline::after {
         content: "";
         position: absolute;
-        inset: auto -80px -80px auto;
-        width: 260px;
-        height: 260px;
+        bottom: 0;
+        width: 70px;
+        height: 45px;
+        border-bottom: 3px dashed var(--grass);
+      }
+
+      .shoreline::before {
+        left: -34px;
+        transform: rotate(42deg);
+      }
+
+      .shoreline::after {
+        right: -34px;
+        transform: rotate(-42deg);
+      }
+
+      .turtle {
+        left: 44%;
+        top: 150px;
+        width: 72px;
+        height: 42px;
+        transform: rotate(-18deg);
+      }
+
+      .turtle::before {
+        content: "";
+        position: absolute;
+        left: 12px;
+        top: 10px;
+        width: 38px;
+        height: 24px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(217, 107, 43, 0.3), transparent 68%);
+        background: rgba(86, 157, 137, 0.42);
+        box-shadow:
+          -17px 5px 0 -3px rgba(86, 157, 137, 0.38),
+          40px 4px 0 -5px rgba(86, 157, 137, 0.38),
+          14px -10px 0 -8px rgba(86, 157, 137, 0.38),
+          14px 20px 0 -8px rgba(86, 157, 137, 0.38);
       }
 
-      .eyebrow {
-        margin: 0 0 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-size: 0.82rem;
-        color: var(--muted);
+      .turtle::after {
+        content: "";
+        position: absolute;
+        left: 22px;
+        top: 13px;
+        width: 24px;
+        height: 16px;
+        border-radius: 50%;
+        border: 3px solid rgba(57, 132, 119, 0.22);
       }
 
-      h1,
-      h2,
-      h3 {
-        margin: 0 0 1rem;
-        line-height: 1.05;
+      .cloud {
+        width: 28px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(185, 239, 239, 0.45);
       }
 
-      h1 {
-        font-size: clamp(2.8rem, 8vw, 5.8rem);
-        max-width: 10ch;
+      .cloud.one {
+        left: 20%;
+        bottom: 75px;
+      }
+
+      .cloud.two {
+        left: 34%;
+        bottom: 74px;
+      }
+
+      .cloud.three {
+        left: 61%;
+        bottom: 73px;
+      }
+
+      .rock {
+        bottom: 50px;
+        height: 18px;
+        width: 70px;
+        background: rgba(58, 134, 154, 0.26);
+        clip-path: polygon(0 70%, 18% 40%, 45% 50%, 66% 26%, 100% 70%, 100% 100%, 0 100%);
+      }
+
+      .rock.one {
+        left: 18%;
+      }
+
+      .rock.two {
+        left: 32%;
+        width: 64px;
+      }
+
+      .rock.three {
+        left: 58%;
+      }
+
+      .plant {
+        bottom: 52px;
+        left: 56%;
+        width: 28px;
+        height: 32px;
+        background: rgba(58, 134, 154, 0.22);
+        clip-path: polygon(50% 0, 74% 38%, 100% 100%, 0 100%, 26% 38%);
+      }
+
+      .bucket {
+        right: 16%;
+        bottom: 51px;
+        width: 34px;
+        height: 44px;
+        border-radius: 7px 7px 0 0;
+        background: rgba(130, 184, 170, 0.24);
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .card {
+        min-height: 176px;
+        padding: 1rem 1.1rem 1.15rem;
+        border-radius: 4px;
+        background: var(--surface);
+        box-shadow: 0 12px 28px var(--shadow);
+      }
+
+      .card.wide {
+        grid-column: 1 / -1;
+        min-height: 215px;
       }
 
       h2 {
-        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        margin: 0 0 0.55rem;
+        font-size: clamp(1.25rem, 2vw, 1.7rem);
+        line-height: 1.15;
+        letter-spacing: 0.02em;
       }
 
-      p,
-      li {
-        font-size: 1.02rem;
-        line-height: 1.75;
-        color: var(--muted);
-      }
-
-      .hero-copy {
-        max-width: 62ch;
-      }
-
-      .cta-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-top: 1.75rem;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.95rem 1.35rem;
-        border-radius: 999px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: transform 160ms ease, background 160ms ease;
-      }
-
-      .button:hover {
-        transform: translateY(-2px);
-      }
-
-      .button-primary {
-        background: var(--accent);
-        color: #fff8f0;
-      }
-
-      .button-primary:hover {
-        background: var(--accent-dark);
-      }
-
-      .button-secondary {
-        color: var(--text);
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.58);
-      }
-
-      .grid {
-        display: grid;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
-      }
-
-      .grid-two {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .section {
-        padding: 2rem;
-      }
-
-      .stack {
-        display: grid;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
-      }
-
-      ul {
+      p {
         margin: 0;
-        padding-left: 1.2rem;
-      }
-
-      .note {
-        font-style: italic;
+        color: var(--text-soft);
+        font-size: clamp(0.94rem, 1.55vw, 1.05rem);
+        line-height: 1.45;
       }
 
       footer {
-        padding: 1.5rem 0 0;
-        color: var(--muted);
+        padding-top: 1.25rem;
         text-align: center;
       }
 
+      footer p {
+        font-size: 0.9rem;
+      }
+
       @media (max-width: 760px) {
-        .hero,
-        .section {
-          padding: 1.5rem;
-          border-radius: 22px;
+        .shell {
+          width: min(100% - 1rem, 1040px);
+          padding-top: 0.5rem;
         }
 
-        .grid-two {
+        .hero {
+          min-height: 230px;
+        }
+
+        .content-grid {
           grid-template-columns: 1fr;
+          gap: 0.9rem;
+          margin-top: 0.9rem;
+        }
+
+        .card,
+        .card.wide {
+          min-height: auto;
         }
       }
     </style>
   </head>
   <body>
     <main class="shell">
-      <section class="hero">
-        <p class="eyebrow">CS8803-EGD Project Site</p>
-        <h1>Turtle Game</h1>
-        <div class="hero-copy">
-          <p>
-            Replace this intro with a short one-paragraph pitch for your game.
-            Explain what the game is, what players do, and why the project
-            matters.
-          </p>
-        </div>
-        <div class="cta-row">
-          <a class="button button-primary" href="prototype.zip">Download Prototype</a>
-          <a class="button button-secondary" href="#concept">Read the Overview</a>
-        </div>
+      <section class="hero" aria-label="Baby Turtle Survival game scene">
+        <h1>Baby Turtle Survival</h1>
+        <div class="horizon"></div>
+        <div class="cloud one"></div>
+        <div class="cloud two"></div>
+        <div class="cloud three"></div>
+        <div class="turtle" aria-hidden="true"></div>
+        <div class="rock one"></div>
+        <div class="rock two"></div>
+        <div class="plant"></div>
+        <div class="rock three"></div>
+        <div class="bucket"></div>
+        <div class="shoreline"></div>
       </section>
 
-      <div class="grid grid-two">
-        <section class="section">
-          <h2>Learning Goals</h2>
-          <ul>
-            <li>Goal 1: Replace this with the specific knowledge players will learn.</li>
-            <li>Goal 2: Replace this with the skill players will practice.</li>
-            <li>
-              Goal 3: Replace this with the behavior or decision-making habit
-              players will develop.
-            </li>
-          </ul>
-        </section>
-
-        <section class="section">
-          <h2>Intended Audience</h2>
-          <ul>
-            <li>Age group: Replace with your target age range.</li>
-            <li>Educational background: Replace with the expected learner background.</li>
-            <li>Learning needs: Replace with the challenges this game addresses.</li>
-          </ul>
-        </section>
-      </div>
-
-      <div class="stack">
-        <section class="section">
-          <h2>Why These Goals Matter</h2>
+      <section class="content-grid" aria-label="Project details">
+        <article class="card">
+          <h2>Overview of Prototype</h2>
           <p>
-            Explain why these learning goals are important for your intended
-            audience. Connect them to a real need, course outcome, or skill gap.
+            A side-scrolling game for kids ages 8-11 where players control a
+            turtle navigating obstacles that represent real-world dangers, with
+            educational messages shown upon failure. The prototype includes
+            basic movement, hazards such as oil can, paper bag, crabs, seagulls,
+            and cars, informative death messages, and a power-up that clears
+            obstacles to highlight environmental impact.
           </p>
-          <p>
-            Explain how the game is tailored to this audience in terms of
-            difficulty, content, and engagement strategies.
-          </p>
-        </section>
+        </article>
 
-        <section class="section" id="concept">
-          <h2>Game Concept</h2>
+        <article class="card">
+          <h2>Educational Learning Goals</h2>
           <p>
-            Describe the narrative, theme, or world of the game here. Keep it
-            short and clear so someone visiting the page can immediately
-            understand the idea.
+            Teaches the challenges of a baby turtle's survival journey,
+            emphasizing real threats like predators and pollution through
+            contextual, behaviorist learning. Uses negative reinforcement with
+            death and positive reinforcement with clean-up actions to promote
+            environmental awareness and conservation behavior.
           </p>
-        </section>
+        </article>
 
-        <section class="section">
+        <article class="card">
+          <h2>Playtesting Feedback</h2>
+          <p>
+            Players found the game engaging and educational, but suggested
+            improvements to onboarding, clearer visuals, and more realistic baby
+            turtle experience. Feedback highlighted the need for better clarity
+            of hazards, added guidance, health mechanics, and enhanced audio and
+            visual cues to improve learning and gameplay experience.
+          </p>
+        </article>
+
+        <article class="card">
           <h2>Game Mechanics</h2>
-          <ul>
-            <li>Player interaction: Explain how players interact with the game world.</li>
-            <li>Rules: Explain the constraints, objectives, or win conditions.</li>
-            <li>Feedback systems: Explain how players know whether they are doing well.</li>
-            <li>Progression: Explain how the game becomes more challenging over time.</li>
-          </ul>
-        </section>
+          <p>
+            A 2D side-scroller with simple movement: left, right, and jump.
+            Features an energy bar for urgency and hazards like crabs, oil spills,
+            obstructing cars, and seagulls that instantly kill the player.
+            Includes a balancing power-up, the beach ball, that clears
+            obstacles, reinforcing gameplay fairness while highlighting
+            environmental impact.
+          </p>
+        </article>
 
-        <section class="section">
-          <h2>Digital Version Plan</h2>
+        <article class="card wide">
+          <h2>Game Iterations</h2>
           <p>
-            If your current prototype is not digital, explain how you plan to
-            turn it into a digital version. Mention the platform, interface, and
-            any important design changes.
+            After playtesting, we improved sound design by adding effects for
+            jumping, dying, and winning, along with background music that matches
+            the environment. We enhanced item feedback using pulsing glows, with
+            white indicating positive effects and red indicating negative ones.
+            To boost playability, we added a speedrun timer and high score
+            tracker. We expanded the course by 1.5 times and enabled fullscreen
+            gameplay to improve length and visibility. We emphasized the
+            challenge of baby turtle survival, noting that only 1 in 1000
+            survive, and added a hatching animation for context. To balance
+            difficulty, we slowed energy drain, reduced crab numbers, and shrank
+            the turtle hitbox while making food harder to find.
           </p>
-        </section>
-
-        <section class="section">
-          <h2>Learning Theories or Perspectives</h2>
-          <h3>Constructivism</h3>
-          <p>
-            Explain which parts of the game let players learn by exploration,
-            testing ideas, or problem solving.
-          </p>
-          <h3>Behaviorism</h3>
-          <p>
-            Explain which parts of the game use repetition, rewards, feedback,
-            or reinforcement.
-          </p>
-          <h3>Situated Learning</h3>
-          <p>
-            Explain which parts of the game place the player in a meaningful or
-            realistic context for learning.
-          </p>
-          <h3>Design Connection</h3>
-          <p>
-            Provide specific examples of mechanics or gameplay elements that
-            reflect these theories.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>Prototype Download</h2>
-          <p>
-            Use the link below to download the current prototype. You can also
-            add platform notes here, such as Windows, Mac, Web, or setup
-            instructions.
-          </p>
-          <p>
-            <a class="button button-primary" href="prototype.zip">Download the Prototype</a>
-          </p>
-          <p class="note">
-            If `prototype.zip` is not in the repository yet, this button will
-            404 until you add it.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>Group Members</h2>
-          <ul>
-            <li>Member One — role or contribution</li>
-            <li>Member Two — role or contribution</li>
-            <li>Member Three — role or contribution</li>
-          </ul>
-        </section>
-      </div>
+        </article>
+      </section>
 
       <footer>
-        <p>Turtle Game project site for CS8803-EGD.</p>
+        <p>Baby Turtle Survival project site for CS8803-EGD.</p>
       </footer>
     </main>
   </body>
