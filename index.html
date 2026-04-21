@@ -60,6 +60,40 @@
         letter-spacing: 0;
       }
 
+      .play-button {
+        position: relative;
+        z-index: 4;
+        display: block;
+        width: fit-content;
+        margin: 1rem auto 0;
+        padding: 0.8rem 1.4rem;
+        border: 2px solid rgba(29, 91, 240, 0.22);
+        border-radius: 4px;
+        color: #ffffff;
+        background: var(--text);
+        box-shadow: 0 10px 22px var(--shadow);
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1;
+        text-decoration: none;
+        transition:
+          background 160ms ease,
+          box-shadow 160ms ease,
+          transform 160ms ease;
+      }
+
+      .play-button:hover,
+      .play-button:focus-visible {
+        background: var(--text-soft);
+        box-shadow: 0 14px 28px rgba(18, 92, 131, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .play-button:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.8);
+        outline-offset: 3px;
+      }
+
       .horizon,
       .shoreline,
       .turtle,
@@ -256,6 +290,11 @@
           min-height: 230px;
         }
 
+        .play-button {
+          padding: 0.72rem 1.1rem;
+          font-size: 0.95rem;
+        }
+
         .content-grid {
           grid-template-columns: 1fr;
           gap: 0.9rem;
@@ -273,6 +312,7 @@
     <main class="shell">
       <section class="hero" aria-label="Baby Turtle Survival game scene">
         <h1>Baby Turtle Survival</h1>
+        <a class="play-button" href="game/Turtle-game.html">Play Game</a>
         <div class="horizon"></div>
         <div class="cloud one"></div>
         <div class="cloud two"></div>
